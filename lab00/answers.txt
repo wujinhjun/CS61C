@@ -1,4 +1,8 @@
-1. grep "keyword" /path/to/directory/*
-2. ps
-3. kill [PID]
-4. diff file1 file2
+1. mv
+2. chmod [options] mode file
+3. pwd
+4. ping
+5. grep "keyword" /path/to/directory/*
+6. ps
+7. kill [PID]
+8. diff file1 file2
