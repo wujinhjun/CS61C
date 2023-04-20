@@ -1,4 +1,5 @@
-1. grep "keyword" /path/to/directory/*
-2. ps
-3. kill [PID]
-4. diff file1 file2
+1. ls -l
+2. grep "keyword" /path/to/directory/*
+3. ps
+4. kill [PID]
+5. diff file1 file2
