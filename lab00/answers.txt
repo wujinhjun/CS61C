@@ -1,9 +1,3 @@
-1. ls -l
-2. mv
-3. chmod [options] mode file
-4. pwd
-5. ping
-6. grep "keyword" /path/to/directory/*
-7. ps
-8. kill [PID]
-9. diff file1 file2
+1.
+2.
+3.
