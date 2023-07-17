@@ -1,3 +1,7 @@
-1.
-2.
-3.
+1. ls -a
+2. mv
+3. chmod
+4. pwd
+5. grep -r keyword /path/to/directory
+6. ps
+7. diff
