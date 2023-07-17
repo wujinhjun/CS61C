@@ -7,7 +7,21 @@ There are two different ways to iterate through a string.
 2nd way hint: all strings end in a null terminator */
 int num_occurrences(char *str, char letter) {
     /* TODO: implement num_occurances */
-    return 0;
+    if (str == NULL) {
+        return 0;
+    }
+
+    int count = 0;
+    int i = 0;
+    while (strcmp(str + i, "\0") != 0) {
+        if (str[i] == letter) {
+            count++;
+        }
+
+        i++;
+    }
+
+    return count;
 }
 
 /* Populates DNA_SEQ with the number of times each nucleotide appears.
