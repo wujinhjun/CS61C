@@ -68,11 +68,14 @@ int main(int argc, char **argv) {
  * to a char * (null terminated string)
  */
 unsigned int stringHash(void *s) {
-  // -- TODO --
-  fprintf(stderr, "need to implement stringHash\n");
+  char *str = (char *) s;
+  unsigned int hash = 0;
 
-  /* To suppress compiler warning until you implement this function, */
-  return 0;
+  while (*str) {
+    hash = (hash * 31) + (*str++);
+  }
+
+  return hash;
 }
 
 /*
@@ -80,10 +83,7 @@ unsigned int stringHash(void *s) {
  * (case sensitive comparison) and 0 otherwise.
  */
 int stringEquals(void *s1, void *s2) {
-  // -- TODO --
-  fprintf(stderr, "You need to implement stringEquals");
-  /* To suppress compiler warning until you implement this function */
-  return 0;
+  return strcmp((char *) s1, (char *) s2) == 0;
 }
 
 /*
@@ -99,8 +99,20 @@ int stringEquals(void *s1, void *s2) {
  * to cleanly exit the program.
  */
 void readDictionary(char *dictName) {
-  // -- TODO --
-  fprintf(stderr, "You need to implement readDictionary\n");
+  FILE *file = fopen(dictName, "r");
+
+  if (!file) {
+    exit(61);
+  }
+
+  char word[61];
+  char replacement[61];
+
+  while (fscanf(file, "%60s %60s", word, replacement) == 2) {
+    insertData(dictionary, strdup(word), strdup(replacement));
+  } 
+
+  fclose(file);
 }
 
 /*
@@ -126,6 +138,84 @@ void readDictionary(char *dictName) {
  * final bit of your grade, you cannot assume words have a bounded length.
  */
 void processInput() {
-  // -- TODO --
-  fprintf(stderr, "You need to implement processInput\n");
+  int c;
+  char word[61];
+  char wordCopy[61];
+  int wordIndex = 0;
+
+  while ((c = getchar()) != EOF) {
+    if (isalpha(c)) {
+        word[wordIndex++] = c;
+    } else {
+        word[wordIndex] = '\0';
+
+        strcpy(wordCopy, word);
+        char *replacement = findData(dictionary, wordCopy);
+
+        if (replacement != NULL) {
+            printf("%s", replacement);
+            wordIndex = 0;
+            putchar(c);
+            continue;
+        }
+
+        for (int i = 1; i < wordIndex; i++) {
+            wordCopy[i] = tolower(wordCopy[i]);
+        }
+
+        replacement = findData(dictionary, wordCopy);
+        if (replacement != NULL) {
+            printf("%s", replacement);
+            wordIndex = 0;
+            putchar(c);
+            continue;
+        }
+
+        wordCopy[0] = tolower(wordCopy[0]);
+
+        replacement = findData(dictionary, wordCopy);
+        if (replacement != NULL) {
+            printf("%s", replacement);
+            wordIndex = 0;
+            putchar(c);
+            continue;
+        }
+
+
+        printf("%s", word);
+        wordIndex = 0;
+        putchar(c);
+    }
+  }
+
+  if (wordIndex > 0) {
+    word[wordIndex] = '\0';
+    strcpy(wordCopy, word);
+    char *replacement = findData(dictionary, wordCopy);
+
+    if (replacement != NULL) {
+        printf("%s", replacement);
+        return;
+    }
+
+    for (int i = 1; i < wordIndex; i++) {
+        wordCopy[i] = tolower(wordCopy[i]);
+    }
+
+    replacement = findData(dictionary, wordCopy);
+    if (replacement != NULL) {
+        printf("%s", replacement);
+        return;
+    }
+    
+    wordCopy[0] = tolower(wordCopy[0]);
+
+    replacement = findData(dictionary, wordCopy);
+    if (replacement != NULL) {
+        printf("%s", replacement);
+        return;
+    }
+
+    printf("%s", word);
+  }
 }
