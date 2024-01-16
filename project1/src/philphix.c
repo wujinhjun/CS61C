@@ -28,6 +28,8 @@
  */
 #include <string.h>
 
+extern char* strdup(const char*);
+
 /*
  * This hash table stores the dictionary.
  */
